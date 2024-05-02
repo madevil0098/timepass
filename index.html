@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>WebSocket Image Stream</title>
 </head>
 <body>
-    <h1>Image from Flask App:</h1>
-    <img id="image" src="" alt="Image">
-
+    <h1>WebSocket Image Stream</h1>
+    <img id="stream" src="#" alt="Streamed Image">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
     <script>
-        // Function to fetch image from Flask app
-        function fetchImage() {
-            // Replace 'http://<your_system_ip>:5000/get_image' with the correct URL
-            document.getElementById('image').src = 'http://46.70.142.22:5000/get_image?' + new Date().getTime();
-        }
-
-        // Fetch image initially and then every 5 seconds
-        fetchImage();
-        setInterval(fetchImage, 5000);
+        const socket = io();
+        const img = document.getElementById('stream');
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+        socket.on('image', (imageData) => {
+            console.log('Received image');
+            img.src = `data:image/jpeg;base64, ${imageData}`;
+        });
     </script>
 </body>
 </html>
-
-
-
