@@ -6,24 +6,22 @@
     <title>Website</title>
 </head>
 <body>
-    <h1>Data from Flask App:</h1>
-    <div id="data"></div>
+    <h1>Image from Flask App:</h1>
+    <img id="image" src="" alt="Image">
 
     <script>
-        // Function to fetch data from Flask app
-        function fetchData() {
-            fetch('http://46.70.142.22:5000/get_data')
-                .then(response => response.json())
-                .then(data => {
-                    // Update HTML element with fetched data
-                    document.getElementById('data').textContent = data.message;
-                })
-                .catch(error => console.error('Error fetching data:', error));
+        // Function to fetch image from Flask app
+        function fetchImage() {
+            // Replace 'http://<your_system_ip>:5000/get_image' with the correct URL
+            document.getElementById('image').src = 'http://46.70.142.22:5000/get_image?' + new Date().getTime();
         }
 
-        // Fetch data initially and then every 5 seconds
-        fetchData();
-        setInterval(fetchData, 5000);
+        // Fetch image initially and then every 5 seconds
+        fetchImage();
+        setInterval(fetchImage, 5000);
     </script>
 </body>
 </html>
+
+
+
